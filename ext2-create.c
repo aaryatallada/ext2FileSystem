@@ -284,6 +284,12 @@ void write_block_bitmap(int fd)
 
 	// TODO It's all yours
 	u8 map_value[BLOCK_SIZE];
+	for(int i = 0; i < BLOCK_SIZE; i++){
+		if(i < 24)
+			map_value[i] = 1;
+		else
+			map_value[i] = 0;
+	}
 
 	if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
 	{
