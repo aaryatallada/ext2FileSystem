@@ -287,8 +287,10 @@ void write_block_bitmap(int fd)
 	for(int i = 0; i < BLOCK_SIZE; i++){
 		if(i < 23)
 			map_value[i] = 1;
-		else
+		else if(i < NUM_BLOCKS)
 			map_value[i] = 0;
+		else 
+			map_value[i] = 1;
 	}
 
 	if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
@@ -311,8 +313,10 @@ void write_inode_bitmap(int fd)
 	for(int i = 0; i < BLOCK_SIZE; i++){
 		if(i < 12)
 			map_value[i] = 1;
-		else
+		else if(i < NUM_INODES)
 			map_value[i] = 0;
+		else
+			map_value[i] = 1;
 	}
 	if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
 	{
