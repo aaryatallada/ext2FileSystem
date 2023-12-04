@@ -526,8 +526,8 @@ void write_hello_world_file_block(int fd)
 		errno_exit("lseek");
 	}
 	ssize_t bytes_remaining = BLOCK_SIZE;
-	const char *myString = "Hello world";
-	write(fd, myString, 11);
+	const char *myString = "Hello world\n";
+	write(fd, myString, 12);
 }
 
 int main(int argc, char *argv[]) {
