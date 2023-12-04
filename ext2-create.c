@@ -299,11 +299,24 @@ void write_block_bitmap(int fd)
 	for (int i = 0; i < BLOCK_SIZE; i++){
 		map_value[i] = 0xFF;
 	}
-	for(int i = 3; i < 128; i++){
+	for(int i = (LAST_BLOCK/8) + 1; i < NUM_BLOCKS/8; i++){
 		map_value[i] = 0x0;
 	}
-	map_value[2] = 0x7F;
-	map_value[127] = 0x80;
+	if(LAST_BLOCK%8 == 7)
+		map_value[LAST_BLOCK/8] = 0x7F;
+	if(LAST_BLOCK%8 == 6)
+		map_value[LAST_BLOCK/8] = 0x3F;
+	if(LAST_BLOCK%8 == 5)
+		map_value[LAST_BLOCK/8] = 0x1F;
+	if(LAST_BLOCK%8 == 4)
+		map_value[LAST_BLOCK/8] = 0x0F;
+	if(LAST_BLOCK%8 == 3)
+		map_value[LAST_BLOCK/8] = 0x07;
+	if(LAST_BLOCK%8 == 2)
+		map_value[LAST_BLOCK/8] = 0x03;
+	if(LAST_BLOCK%8 == 1)
+		map_value[LAST_BLOCK/8] = 0x01;
+	map_value[NUM_BLOCKS/8 - 1] = 0x80;
 	if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
 	{
 		errno_exit("write");
