@@ -400,7 +400,7 @@ void write_inode_table(int fd) {
 	
 	//HELLO SYMLINK INO
 	struct ext2_inode hello_sym_inode = {0};
-	hello_sym_inode.i_mode = EXT2_S_IFREG
+	hello_sym_inode.i_mode = EXT2_S_IFLNK
 	                              | EXT2_S_IRUSR
 	                              | EXT2_S_IWUSR
 	                              | EXT2_S_IRGRP
