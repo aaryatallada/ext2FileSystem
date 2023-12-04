@@ -342,10 +342,25 @@ void write_inode_bitmap(int fd)
 	// 	else
 	// 		map_value[i] = -1;
 	// }
-	for (int i = 16; i < BLOCK_SIZE; i++)
+	for (int i = NUM_INODES/8; i < BLOCK_SIZE; i++)
 		map_value[i] = -1;
-	map_value[2] = 0x0;
-	map_value[1] = 0x1F;
+	for(int i = (LAST_INO/8) + 1; i < NUM_INODES/8; i++){
+		map_value[i] = 0x0;
+	}
+	if(LAST_INO%8 == 7)
+		map_value[LAST_INO/8] = 0x7F;
+	if(LAST_INO%8 == 6)
+		map_value[LAST_INO/8] = 0x3F;
+	if(LAST_INO%8 == 5)
+		map_value[LAST_INO/8] = 0x1F;
+	if(LAST_INO%8 == 4)
+		map_value[LAST_INO/8] = 0x0F;
+	if(LAST_INO%8 == 3)
+		map_value[LAST_INO/8] = 0x07;
+	if(LAST_INO%8 == 2)
+		map_value[LAST_INO/8] = 0x03;
+	if(LAST_INO%8 == 1)
+		map_value[LAST_INO/8] = 0x01;
 	if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
 	{
 		errno_exit("write");
