@@ -287,13 +287,14 @@ void write_block_bitmap(int fd)
 	for(int i = 0; i < BLOCK_SIZE; i++){
 		if(i < LAST_BLOCK/8)
 			map_value[i] = -1;
-		else if(i < NUM_BLOCKS/8 +1)
+		else if(i < NUM_BLOCKS/8)
 			map_value[i] = 0;
 		else
-			map_value[i] = -1;
+			map_value[i] = 0;
 	}
-	if(LAST_BLOCK%8 != 0)
-		map_value[LAST_BLOCK/8] = (2^(LAST_BLOCK%8)) - 1;
+	map_value[2] = 127;
+	// if(LAST_BLOCK%8 != 0)
+	// 	map_value[LAST_BLOCK/8] = (2^(LAST_BLOCK%8)) - 1;
 
 	if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
 	{
