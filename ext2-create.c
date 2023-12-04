@@ -285,13 +285,15 @@ void write_block_bitmap(int fd)
 	// TODO It's all yours
 	u8 map_value[BLOCK_SIZE];
 	for(int i = 0; i < BLOCK_SIZE; i++){
-		if(i < LAST_BLOCK)
+		if(i < LAST_BLOCK/8)
 			map_value[i] = -1;
-		else if(i < NUM_BLOCKS)
+		else if(i < NUM_BLOCKS/8)
 			map_value[i] = 0;
-		else 
+		else
 			map_value[i] = -1;
 	}
+	if(LAST_BLOCK%8 != 0)
+		map_value[LAST_BLOCK/8] = 2^LAST_BLOCK%8 - 1;
 
 	if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
 	{
@@ -310,7 +312,7 @@ void write_inode_bitmap(int fd)
 	// TODO It's all yours
 	
 	u8 map_value[BLOCK_SIZE];
-	for(int i = 0; i < LAST_INO; i+= 8){
+	for(int i = 0; i < LAST_INO; i++){
 		if(i < 12)
 			map_value[i] = -1;
 		else if(i < NUM_INODES)
@@ -374,6 +376,7 @@ void write_inode_table(int fd) {
 	hello_world_inode.i_size = 12;
 	hello_world_inode.i_atime = current_time;
 	hello_world_inode.i_ctime = current_time;
+	lost_and_found_inode.i_mtime = current_time;
 	hello_world_inode.i_dtime = 0;
 	hello_world_inode.i_gid = 1000;
 	hello_world_inode.i_links_count = 1;
@@ -393,6 +396,7 @@ void write_inode_table(int fd) {
 	hello_sym_inode.i_size = 11;
 	hello_sym_inode.i_atime = current_time;
 	hello_sym_inode.i_ctime = current_time;
+	lost_and_found_inode.i_mtime = current_time;
 	hello_sym_inode.i_dtime = 0;
 	hello_sym_inode.i_gid = 1000;
 	hello_sym_inode.i_links_count = 1;
