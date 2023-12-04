@@ -287,7 +287,7 @@ void write_block_bitmap(int fd)
 	for(int i = 0; i < BLOCK_SIZE; i++){
 		if(i < LAST_BLOCK/8)
 			map_value[i] = -1;
-		else if(i < NUM_BLOCKS/8)
+		else if(i < NUM_BLOCKS/8 +1)
 			map_value[i] = 0;
 		else
 			map_value[i] = -1;
