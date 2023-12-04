@@ -293,7 +293,7 @@ void write_block_bitmap(int fd)
 			map_value[i] = -1;
 	}
 	if(LAST_BLOCK%8 != 0)
-		map_value[LAST_BLOCK/8] = 2^LAST_BLOCK%8 - 1;
+		map_value[LAST_BLOCK/8] = 2^(LAST_BLOCK%8) - 1;
 
 	if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
 	{
