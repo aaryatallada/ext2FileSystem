@@ -329,6 +329,8 @@ void write_inode_bitmap(int fd)
 	// 	else
 	// 		map_value[i] = -1;
 	// }
+	for (int i = 0; i < BLOCK_SIZE; i++)
+		map_value[i] = -1;
 	map_value[2] = 0x0;
 	map_value[1] = 0x1F;
 	if (write(fd, map_value, BLOCK_SIZE) != BLOCK_SIZE)
