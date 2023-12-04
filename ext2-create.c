@@ -414,7 +414,7 @@ void write_inode_table(int fd) {
 	hello_sym_inode.i_gid = 1000;
 	hello_sym_inode.i_links_count = 1;
 	hello_sym_inode.i_blocks = 0; //SYMLINKS JUST REFERENCE TO THE SAME BLOCK
-	strcpy(hello_inode.i_block, "hello-world");
+	strcpy(hello_sym_inode.i_block, "hello-world");
 	//hello_world_inode.i_block[0] = HELLO_WORLD_FILE_BLOCKNO;
 	write_inode(fd, HELLO_INO, &hello_sym_inode);
 
