@@ -389,7 +389,7 @@ void write_inode_table(int fd) {
 	hello_sym_inode.i_size = 11;
 	hello_sym_inode.i_atime = current_time;
 	hello_sym_inode.i_ctime = current_time;
-	hello_sym_inode.i_dtime = current_time;
+	hello_sym_inode.i_dtime = 0;
 	hello_sym_inode.i_gid = 1000;
 	hello_sym_inode.i_links_count = 1;
 	hello_sym_inode.i_blocks = 1;
