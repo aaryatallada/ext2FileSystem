@@ -1,6 +1,6 @@
 # Hey! I'm Filing Here
 
-In this lab, I successfully implemented a 1Mib ext2 File System with 2 directories, 1 regular file, and 1 symbolic link.
+In this project, I successfully implemented a 1Mib ext2 File System with 2 directories, 1 regular file, and 1 symbolic link.
 
 ## Building
 
